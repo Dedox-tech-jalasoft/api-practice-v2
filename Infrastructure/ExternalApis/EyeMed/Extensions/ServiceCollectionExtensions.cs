@@ -1,14 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddEyeMedHttpClient (this IServiceCollection services, IConfiguration configuration)
+        public static void AddEyeMedServices (this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHttpClient("EyeMed", httpClient =>
+            services.AddHttpClient<EyeMedPatientService>(options =>
             {
-                httpClient.BaseAddress = new Uri(configuration["ThirdPartyApis:EyeMedUrl"]!);
+                options.BaseAddress = new Uri(configuration["ExternalApis:EyeMedUrl"]!);
             });
         }
     }

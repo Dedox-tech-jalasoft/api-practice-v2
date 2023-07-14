@@ -1,6 +1,7 @@
 ﻿using InsuranceAPIv2.Application.Contracts;
 using InsuranceAPIv2.Application.DTOs;
 using InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.DTOs;
+using InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.Services;
 using InsuranceAPIv2.Shared.Constants;
 using System.Text.Json;
 
@@ -10,27 +11,16 @@ namespace InsuranceAPIv2.Application.Strategies
     {
         public int SupportedCarrier => CarriersIdsConstants.EyeMed;
 
-        private readonly IHttpClientFactory httpClientFactory;
+        private readonly EyeMedPatientService eyeMedPatientService;
 
-        public EyeMedPatientStrategy(IHttpClientFactory httpClientFactory)
+        public EyeMedPatientStrategy(EyeMedPatientService eyeMedPatientService)
         {
-            this.httpClientFactory = httpClientFactory;
+            this.eyeMedPatientService = eyeMedPatientService;
         }
 
         public async Task<DtoPatient> FindPatientById(int patiendId)
         {
-            HttpClient httpClient = httpClientFactory.CreateClient("EyeMed");
-
-            HttpResponseMessage response = await httpClient.GetAsync($"/patients/{patiendId}");
-
-            Stream rawContent = await response.Content.ReadAsStreamAsync();
-
-            JsonSerializerOptions options = new JsonSerializerOptions()
-            {
-                PropertyNameCaseInsensitive = true,
-            };
-
-            DtoPatientEyeMed patient = await JsonSerializer.DeserializeAsync<DtoPatientEyeMed>(rawContent, options);
+            EyeMedDtoPatient patient = await eyeMedPatientService.GetPatientById(patiendId);
 
             return new DtoPatient
             {

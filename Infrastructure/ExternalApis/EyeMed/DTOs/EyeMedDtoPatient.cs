@@ -1,6 +1,6 @@
 ﻿namespace InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.DTOs
 {
-    public class DtoPatientEyeMed
+    public class EyeMedDtoPatient
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

@@ -1,6 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEyeMedHttpClient(builder.Configuration);
+builder.Services.AddEyeMedServices(builder.Configuration);
 
 builder.Services.AddApplicationServices();
 
