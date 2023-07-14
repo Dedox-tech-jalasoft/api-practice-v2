@@ -11,6 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.BaseAddress = new Uri(configuration["ExternalApis:VspUrl"]!);
             });
+
+            services.AddHttpClient<VspBenefitService>(options =>
+            {
+                options.BaseAddress = new Uri(configuration["ExternalApis:VspUrl"]!);
+            });
         }
     }
 }

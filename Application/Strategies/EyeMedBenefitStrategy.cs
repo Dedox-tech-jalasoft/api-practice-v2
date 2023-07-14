@@ -21,7 +21,7 @@ namespace InsuranceAPIv2.Application.Strategies
         {
             IEnumerable<EyeMedDtoBenefit> benefits = await eyeMedBenefitService.GetPatientBenefits(patientId);
 
-            IEnumerable<DtoBenefit> genericBenefits = benefits.Select(benefit => new DtoBenefit
+            IEnumerable<DtoBenefit> genericBenefits = benefits.Select(benefit => new DtoBenefit()
             {
                 Id = benefit.Id,
                 Name = benefit.Name,

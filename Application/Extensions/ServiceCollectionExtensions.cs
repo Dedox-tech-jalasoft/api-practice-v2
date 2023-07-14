@@ -19,6 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IBenefitStrategyFactory, BenefitStrategyFactory>();
 
             services.AddScoped<IBenefitStrategy, EyeMedBenefitStrategy>();
+            services.AddScoped<IBenefitStrategy, VspBenefitStrategy>();
         }
     }
 }
