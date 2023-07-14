@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceAPIv2.Presentation.Controllers
 {
-    [Route("api/v1/carriers/{carrierId}/patients")]
+    [Route("api/v2/carriers/{carrierId}/patients")]
     [ApiController]
     public class PatientsController : ControllerBase
     {

@@ -11,6 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.BaseAddress = new Uri(configuration["ExternalApis:EyeMedUrl"]!);
             });
+
+            services.AddHttpClient<EyeMedBenefitService>(options =>
+            {
+                options.BaseAddress = new Uri(configuration["ExternalApis:EyeMedUrl"]!);
+            });
         }
     }
 }
