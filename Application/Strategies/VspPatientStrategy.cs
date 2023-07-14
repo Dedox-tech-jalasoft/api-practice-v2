@@ -1,5 +1,7 @@
 ﻿using InsuranceAPIv2.Application.Contracts;
 using InsuranceAPIv2.Application.DTOs;
+using InsuranceAPIv2.Infrastructure.ExternalApis.Vsp.DTOs;
+using InsuranceAPIv2.Infrastructure.ExternalApis.Vsp.Services;
 using InsuranceAPIv2.Shared.Constants;
 
 namespace InsuranceAPIv2.Application.Strategies
@@ -8,16 +10,23 @@ namespace InsuranceAPIv2.Application.Strategies
     {
         public int SupportedCarrier => CarriersIdsConstants.Vsp;
 
-        public Task<DtoPatient> FindPatientById(int patiendId)
-        {
-            Task<DtoPatient> task = Task.FromResult(new DtoPatient
-            {
-                Id = 100,
-                FullName = "Vsp patient name",
-                Company = "Wonderful company"
-            });
+        private readonly VspPatientService vspPatientService;
 
-            return task;
+        public VspPatientStrategy(VspPatientService vspPatientService)
+        {
+            this.vspPatientService = vspPatientService;
+        }
+
+        public async Task<DtoPatient> FindPatientById(int patiendId)
+        {
+            VspDtoPatient patient = await vspPatientService.GetPatientById(patiendId);
+
+            return new DtoPatient
+            {
+                Id = patient.Id,
+                FullName = patient.FirstName + " " + patient.LastName,
+                Company = patient.Corporation
+            };
         }
     }
 }

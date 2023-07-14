@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
         public static void AddEyeMedServices (this IServiceCollection services, IConfiguration configuration)
         {
