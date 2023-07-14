@@ -5,20 +5,16 @@ namespace InsuranceAPIv2.Application.Contexts
 {
     public class PatientContext : IPatientContext
     {
-        private readonly IEnumerable<IPatientStrategy> patientStrategies;
+        private readonly IPatientStrategyFactory patientStrategyFactory;
 
-        public PatientContext(IEnumerable<IPatientStrategy> patientStrategies)
+        public PatientContext(IPatientStrategyFactory patientStrategyFactory)
         {
-            this.patientStrategies = patientStrategies;
+            this.patientStrategyFactory = patientStrategyFactory;
         }
 
         public async Task<DtoPatient> RetrievePatientById(int carrierId, int patientId)
         {
-            // Asumming that we obtain the correct service based on carrierId
-            // Something like service = getServices(carrierId)
-            // And then result = service.FindPatientById()
-            IPatientStrategy patientStrategy = patientStrategies
-                .FirstOrDefault(strategy => strategy.SupportedCarrier == carrierId);
+            IPatientStrategy patientStrategy = patientStrategyFactory.GetPatientStrategy(carrierId);
 
             DtoPatient patient = await patientStrategy.FindPatientById(patientId);
 

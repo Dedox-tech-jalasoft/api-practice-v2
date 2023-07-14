@@ -2,6 +2,6 @@
 {
     public interface IPatientStrategyFactory
     {
-
+        public IPatientStrategy GetPatientStrategy(int carrierId);
     }
 }

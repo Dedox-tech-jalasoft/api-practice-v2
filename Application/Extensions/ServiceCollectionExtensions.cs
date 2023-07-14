@@ -1,5 +1,6 @@
 ﻿using InsuranceAPIv2.Application.Contexts;
 using InsuranceAPIv2.Application.Contracts;
+using InsuranceAPIv2.Application.Factories;
 using InsuranceAPIv2.Application.Strategies;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -12,6 +13,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IPatientStrategy, EyeMedPatientStrategy>();
             services.AddScoped<IPatientStrategy, VspPatientStrategy>();
+
+            services.AddScoped<IPatientStrategyFactory, PatientStrategyFactory>();
         }
     }
 }
