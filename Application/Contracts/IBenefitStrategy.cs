@@ -2,9 +2,8 @@
 
 namespace InsuranceAPIv2.Application.Contracts
 {
-    public interface IBenefitStrategy
+    public interface IBenefitStrategy: IStrategy
     {
-        public int SupportedCarrier { get ; }
         public Task<IEnumerable<DtoBenefit>> FindPatientBenefits(int patientId);
     }
 }

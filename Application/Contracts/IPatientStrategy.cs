@@ -2,9 +2,8 @@
 
 namespace InsuranceAPIv2.Application.Contracts
 {
-    public interface IPatientStrategy
+    public interface IPatientStrategy : IStrategy
     {
-        public int SupportedCarrier { get; }
         public Task<DtoPatient> FindPatientById(int patiendId);
     }
 }
