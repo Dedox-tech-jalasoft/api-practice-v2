@@ -10,13 +10,13 @@ namespace Microsoft.Extensions.DependencyInjection
         public static void AddApplicationServices (this IServiceCollection services)
         {
             services.AddScoped<IPatientContext, PatientContext>();
-            services.AddScoped<IStrategyFactory<IPatientStrategy>, PatientStrategyFactory>();
+            services.AddScoped<IStrategyFactory<IPatientStrategy>, StrategyFactory<IPatientStrategy>>();
 
             services.AddScoped<IPatientStrategy, EyeMedPatientStrategy>();
             services.AddScoped<IPatientStrategy, VspPatientStrategy>();
 
             services.AddScoped<IBenefitContext, BenefitContext>();
-            services.AddScoped<IStrategyFactory<IBenefitStrategy>, BenefitStrategyFactory>();
+            services.AddScoped<IStrategyFactory<IBenefitStrategy>, StrategyFactory<IBenefitStrategy>>();
 
             services.AddScoped<IBenefitStrategy, EyeMedBenefitStrategy>();
             services.AddScoped<IBenefitStrategy, VspBenefitStrategy>();

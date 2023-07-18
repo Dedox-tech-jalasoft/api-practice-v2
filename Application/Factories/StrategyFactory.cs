@@ -2,11 +2,11 @@
 
 namespace InsuranceAPIv2.Application.Factories
 {
-    public abstract class StrategyFactory<T> : IStrategyFactory<T> where T : IStrategy
+    public class StrategyFactory<T> : IStrategyFactory<T> where T : IStrategy
     {
         private readonly IEnumerable<T> strategies;
 
-        protected StrategyFactory(IEnumerable<T> strategies)
+        public StrategyFactory(IEnumerable<T> strategies)
         {
             this.strategies = strategies;
         }
