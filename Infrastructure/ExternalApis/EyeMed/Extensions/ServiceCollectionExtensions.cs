@@ -7,15 +7,11 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddEyeMedServices (this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHttpClient<EyeMedPatientService>(options =>
-            {
-                options.BaseAddress = new Uri(configuration["ExternalApis:EyeMedUrl"]!);
-            });
+            Uri eyeMedUri = new(configuration["ExternalApis:EyeMedUrl"]!);
+            
+            services.AddHttpClient<EyeMedPatientService>(options => options.BaseAddress = eyeMedUri);
 
-            services.AddHttpClient<EyeMedBenefitService>(options =>
-            {
-                options.BaseAddress = new Uri(configuration["ExternalApis:EyeMedUrl"]!);
-            });
+            services.AddHttpClient<EyeMedBenefitService>(options => options.BaseAddress = eyeMedUri);
         }
     }
 }

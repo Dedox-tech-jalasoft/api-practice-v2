@@ -7,15 +7,11 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddVspServices (this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHttpClient<VspPatientService>(options =>
-            {
-                options.BaseAddress = new Uri(configuration["ExternalApis:VspUrl"]!);
-            });
+            Uri vspUri = new Uri(configuration["ExternalApis:VspUrl"]!);
+            
+            services.AddHttpClient<VspPatientService>(options => options.BaseAddress = vspUri);
 
-            services.AddHttpClient<VspBenefitService>(options =>
-            {
-                options.BaseAddress = new Uri(configuration["ExternalApis:VspUrl"]!);
-            });
+            services.AddHttpClient<VspBenefitService>(options => options.BaseAddress = vspUri);
         }
     }
 }
