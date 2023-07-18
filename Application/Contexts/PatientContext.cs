@@ -5,16 +5,16 @@ namespace InsuranceAPIv2.Application.Contexts
 {
     public class PatientContext : IPatientContext
     {
-        private readonly IPatientStrategyFactory patientStrategyFactory;
+        private readonly IStrategyFactory<IPatientStrategy> patientStrategyFactory;
 
-        public PatientContext(IPatientStrategyFactory patientStrategyFactory)
+        public PatientContext(IStrategyFactory<IPatientStrategy> patientStrategyFactory)
         {
             this.patientStrategyFactory = patientStrategyFactory;
         }
 
         public async Task<DtoPatient> RetrievePatientById(int carrierId, int patientId)
         {
-            IPatientStrategy patientStrategy = patientStrategyFactory.GetPatientStrategy(carrierId);
+            IPatientStrategy patientStrategy = patientStrategyFactory.GetStrategy(carrierId);
 
             DtoPatient patient = await patientStrategy.FindPatientById(patientId);
 

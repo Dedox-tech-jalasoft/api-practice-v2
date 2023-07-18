@@ -2,26 +2,10 @@
 
 namespace InsuranceAPIv2.Application.Factories
 {
-    public class PatientStrategyFactory : IPatientStrategyFactory
+    public class PatientStrategyFactory : StrategyFactory<IPatientStrategy>
     {
-        private readonly IEnumerable<IPatientStrategy> patientStrategies;
-
-        public PatientStrategyFactory(IEnumerable<IPatientStrategy> patientStrategies)
+        public PatientStrategyFactory(IEnumerable<IPatientStrategy> strategies) : base(strategies)
         {
-            this.patientStrategies = patientStrategies;
-        }
-
-        public IPatientStrategy GetPatientStrategy(int carrierId)
-        {
-            IPatientStrategy? patientStrategy = patientStrategies
-                .FirstOrDefault(strategy => strategy.SupportedCarrier == carrierId);
-
-            if (patientStrategy == null)
-            {
-                throw new NotSupportedException($"No supported strategy found for carrierId {carrierId}");
-            }
-
-            return patientStrategy;
         }
     }
 }

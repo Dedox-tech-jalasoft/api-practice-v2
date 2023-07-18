@@ -5,16 +5,16 @@ namespace InsuranceAPIv2.Application.Contexts
 {
     public class BenefitContext : IBenefitContext
     {
-        private readonly IBenefitStrategyFactory benefitStrategyFactory;
+        private readonly IStrategyFactory<IBenefitStrategy> benefitStrategyFactory;
 
-        public BenefitContext(IBenefitStrategyFactory benefitStrategyFactory)
+        public BenefitContext(IStrategyFactory<IBenefitStrategy> benefitStrategyFactory)
         {
             this.benefitStrategyFactory = benefitStrategyFactory;
         }
 
         public async Task<IEnumerable<DtoBenefit>> RetrievePatientBenefits(int carrierId, int patientId)
         {
-            IBenefitStrategy strategy = benefitStrategyFactory.GetBenefitStrategy(carrierId);
+            IBenefitStrategy strategy = benefitStrategyFactory.GetStrategy(carrierId);
 
             IEnumerable<DtoBenefit> benefits = await strategy.FindPatientBenefits(patientId);
 
