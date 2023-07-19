@@ -1,7 +1,9 @@
-﻿namespace InsuranceAPIv2.Application.Contracts
+﻿using InsuranceAPIv2.Shared.Helpers;
+
+namespace InsuranceAPIv2.Application.Contracts
 {
     public interface IStrategy
     {
-        public int SupportedCarrier { get; }
+        public Carrier SupportedCarrier { get; }
     }
 }

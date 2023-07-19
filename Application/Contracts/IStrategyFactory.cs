@@ -1,7 +1,9 @@
-﻿namespace InsuranceAPIv2.Application.Contracts
+﻿using InsuranceAPIv2.Shared.Helpers;
+
+namespace InsuranceAPIv2.Application.Contracts
 {
     public interface IStrategyFactory<T> where T: IStrategy
     {
-        public T GetStrategy(int carrierId);
+        public T GetStrategy(Carrier carrier);
     }
 }

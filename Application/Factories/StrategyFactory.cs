@@ -1,4 +1,5 @@
 ﻿using InsuranceAPIv2.Application.Contracts;
+using InsuranceAPIv2.Shared.Helpers;
 
 namespace InsuranceAPIv2.Application.Factories
 {
@@ -11,13 +12,13 @@ namespace InsuranceAPIv2.Application.Factories
             this.strategies = strategies;
         }
 
-        public T GetStrategy(int carrierId)
+        public T GetStrategy(Carrier carrier)
         {
-            T? strategy = strategies.FirstOrDefault(strategy => strategy.SupportedCarrier == carrierId);
+            T? strategy = strategies.FirstOrDefault(strategy => strategy.SupportedCarrier == carrier);
 
             if (strategy == null)
             {
-                throw new NotSupportedException($"Not supported strategy found for carrierId {carrierId}");
+                throw new NotSupportedException($"Not supported strategy found for carrierId {carrier}");
             }
 
             return strategy;

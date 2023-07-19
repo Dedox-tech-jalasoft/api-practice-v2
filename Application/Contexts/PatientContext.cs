@@ -1,5 +1,7 @@
 ﻿using InsuranceAPIv2.Application.Contracts;
 using InsuranceAPIv2.Application.DTOs;
+using InsuranceAPIv2.Shared.Abstractions;
+using InsuranceAPIv2.Shared.Helpers;
 
 namespace InsuranceAPIv2.Application.Contexts
 {
@@ -14,7 +16,8 @@ namespace InsuranceAPIv2.Application.Contexts
 
         public async Task<DtoPatient> RetrievePatientById(int carrierId, int patientId)
         {
-            IPatientStrategy patientStrategy = patientStrategyFactory.GetStrategy(carrierId);
+            // Pending to update using Result<T>
+            IPatientStrategy patientStrategy = patientStrategyFactory.GetStrategy((Carrier)carrierId);
 
             DtoPatient patient = await patientStrategy.FindPatientById(patientId);
 

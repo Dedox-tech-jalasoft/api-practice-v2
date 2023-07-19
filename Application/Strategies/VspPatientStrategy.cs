@@ -2,13 +2,13 @@
 using InsuranceAPIv2.Application.DTOs;
 using InsuranceAPIv2.Infrastructure.ExternalApis.Vsp.DTOs;
 using InsuranceAPIv2.Infrastructure.ExternalApis.Vsp.Services;
-using InsuranceAPIv2.Shared.Constants;
+using InsuranceAPIv2.Shared.Helpers;
 
 namespace InsuranceAPIv2.Application.Strategies
 {
     public class VspPatientStrategy : IPatientStrategy
     {
-        public int SupportedCarrier => CarriersIdsConstants.Vsp;
+        public Carrier SupportedCarrier => Carrier.Vsp;
 
         private readonly VspPatientService vspPatientService;
 

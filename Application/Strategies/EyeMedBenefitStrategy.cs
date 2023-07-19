@@ -2,13 +2,13 @@
 using InsuranceAPIv2.Application.DTOs;
 using InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.DTOs;
 using InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.Services;
-using InsuranceAPIv2.Shared.Constants;
+using InsuranceAPIv2.Shared.Helpers;
 
 namespace InsuranceAPIv2.Application.Strategies
 {
     public class EyeMedBenefitStrategy : IBenefitStrategy
     {
-        public int SupportedCarrier => CarriersIdsConstants.EyeMed;
+        public Carrier SupportedCarrier => Carrier.EyeMed;
 
         private readonly EyeMedBenefitService eyeMedBenefitService;
 

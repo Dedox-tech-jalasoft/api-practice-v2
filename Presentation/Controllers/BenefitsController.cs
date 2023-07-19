@@ -1,5 +1,6 @@
 ﻿using InsuranceAPIv2.Application.Contracts;
 using InsuranceAPIv2.Application.DTOs;
+using InsuranceAPIv2.Shared.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceAPIv2.Presentation.Controllers
@@ -18,10 +19,15 @@ namespace InsuranceAPIv2.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPatientBenefits (int carrierId, int patientId)
         {
-            IEnumerable<DtoBenefit> benefits = await benefitContext
+            Result<IEnumerable<DtoBenefit>> result = await benefitContext
                 .RetrievePatientBenefits(carrierId, patientId);
+            
+            if (result.Error?.Code == Code.BadRequest)
+            {
+                return BadRequest(result.Error.Message);
+            }
 
-            return Ok(benefits);
+            return Ok(result.Data);
         }
 
     }
