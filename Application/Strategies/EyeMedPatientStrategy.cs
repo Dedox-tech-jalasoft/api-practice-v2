@@ -17,17 +17,11 @@ namespace InsuranceAPIv2.Application.Strategies
             this.eyeMedPatientService = eyeMedPatientService;
         }
 
-        public async Task<DtoPatient> FindPatientById(int patiendId)
+        public async Task<DtoPatient?> FindPatientById(int patiendId)
         {
-            EyeMedDtoPatient patient = await eyeMedPatientService.GetPatientById(patiendId);
+            EyeMedDtoPatient? patient = await eyeMedPatientService.GetPatientById(patiendId);
 
-            return new DtoPatient
-            {
-                Id = patient.Id,
-                FullName = patient.Name,
-                Company = patient.Enterprise
-            };
-
+            return patient == null ? null : new DtoPatient { Id = patient.Id, FullName = patient.Name, Company = patient.Enterprise };
         }
     }
 }

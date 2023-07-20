@@ -4,6 +4,6 @@ namespace InsuranceAPIv2.Application.Contracts
 {
     public interface IPatientStrategy : IStrategy
     {
-        public Task<DtoPatient> FindPatientById(int patiendId);
+        public Task<DtoPatient?> FindPatientById(int patiendId);
     }
 }

@@ -18,7 +18,7 @@ namespace InsuranceAPIv2.Application.Contexts
         {
             if (!CarrierValidator.DoesCarrierExist(carrierId))
             {
-                Error error = new Error { Code = Code.BadRequest, Message = "Invalid Carrier Id" };
+                Error error = new() { Code = Code.BadRequest, Message = "Invalid Carrier Id" };
 
                 return new Result<IEnumerable<DtoBenefit>> { Error = error };
             }

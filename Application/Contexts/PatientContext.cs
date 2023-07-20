@@ -14,14 +14,29 @@ namespace InsuranceAPIv2.Application.Contexts
             this.patientStrategyFactory = patientStrategyFactory;
         }
 
-        public async Task<DtoPatient> RetrievePatientById(int carrierId, int patientId)
+        public async Task<Result<DtoPatient>> RetrievePatientById(int carrierId, int patientId)
         {
-            // Pending to update using Result<T>
-            IPatientStrategy patientStrategy = patientStrategyFactory.GetStrategy((Carrier)carrierId);
+            if (!CarrierValidator.DoesCarrierExist(carrierId))
+            {
+                Error error = new() { Code = Code.BadRequest, Message = "Invalid Carrier Id" };
 
-            DtoPatient patient = await patientStrategy.FindPatientById(patientId);
+                return new Result<DtoPatient> { Error = error };
+            }
 
-            return patient;
+            Carrier carrier = CarrierValidator.GetValidCarrierById(carrierId);
+
+            IPatientStrategy patientStrategy = patientStrategyFactory.GetStrategy(carrier);
+
+            DtoPatient? patient = await patientStrategy.FindPatientById(patientId);
+
+            if (patient == null)
+            {
+                Error error = new() { Code = Code.NotFound, Message = "Patient not found" };
+
+                return new Result<DtoPatient> { Error = error };
+            }
+
+            return new Result<DtoPatient> { Data = patient};
         }
     }
 }

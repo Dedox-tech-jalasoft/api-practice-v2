@@ -1,4 +1,5 @@
 ﻿using InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.DTOs;
+using System.Net;
 using System.Net.Http.Json;
 
 namespace InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.Services
@@ -12,10 +13,24 @@ namespace InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<EyeMedDtoPatient> GetPatientById (int patientId)
+        public async Task<EyeMedDtoPatient?> GetPatientById (int patientId)
         {
-            return await httpClient
-                .GetFromJsonAsync<EyeMedDtoPatient>($"/patients/{patientId}");
+            try
+            {
+                EyeMedDtoPatient patient = await httpClient.GetFromJsonAsync<EyeMedDtoPatient>($"/patients/{patientId}");
+
+                return patient;
+            }
+            
+            catch (HttpRequestException exception)
+            {
+                if (exception.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+
+                throw;
+            }
         }
     }
 }
