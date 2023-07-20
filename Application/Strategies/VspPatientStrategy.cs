@@ -17,16 +17,11 @@ namespace InsuranceAPIv2.Application.Strategies
             this.vspPatientService = vspPatientService;
         }
 
-        public async Task<DtoPatient> FindPatientById(int patiendId)
+        public async Task<DtoPatient?> FindPatientById(int patiendId)
         {
-            VspDtoPatient patient = await vspPatientService.GetPatientById(patiendId);
+            VspDtoPatient? patient = await vspPatientService.GetPatientById(patiendId);
 
-            return new DtoPatient
-            {
-                Id = patient.Id,
-                FullName = patient.FirstName + " " + patient.LastName,
-                Company = patient.Corporation
-            };
+            return patient == null ? null : new DtoPatient { Id = patient.Id, FullName = $"{patient.FirstName} {patient.LastName}", Company = patient.Corporation};
         }
     }
 }

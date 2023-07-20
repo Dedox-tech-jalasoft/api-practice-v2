@@ -19,8 +19,7 @@ namespace InsuranceAPIv2.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPatientBenefits (int carrierId, int patientId)
         {
-            Result<IEnumerable<DtoBenefit>> result = await benefitContext
-                .RetrievePatientBenefits(carrierId, patientId);
+            Result<IEnumerable<DtoBenefit>> result = await benefitContext.RetrievePatientBenefits(carrierId, patientId);
             
             if (result.Error?.Code == Code.BadRequest)
             {

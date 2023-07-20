@@ -17,9 +17,9 @@ namespace InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.Services
         {
             try
             {
-                EyeMedDtoPatient patient = await httpClient.GetFromJsonAsync<EyeMedDtoPatient>($"/patients/{patientId}");
+                EyeMedDtoPatient? patient = await httpClient.GetFromJsonAsync<EyeMedDtoPatient>($"/patients/{patientId}");
 
-                return patient;
+                return patient ?? throw new InvalidOperationException("Failed to parse JSON payload");
             }
             
             catch (HttpRequestException exception)

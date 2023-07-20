@@ -14,8 +14,10 @@ namespace InsuranceAPIv2.Infrastructure.ExternalApis.Vsp.Services
 
         public async Task<IEnumerable<VspDtoBenefit>> GetPatientBenefits (int patientId)
         {
-            return await httpClient
+            IEnumerable<VspDtoBenefit>? benefits = await httpClient
                 .GetFromJsonAsync<IEnumerable<VspDtoBenefit>>($"patients/{patientId}/benefits");
+
+            return benefits ?? throw new InvalidOperationException("Failed to parse JSON payload");
         }
     }
 }

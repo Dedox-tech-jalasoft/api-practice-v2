@@ -14,8 +14,10 @@ namespace InsuranceAPIv2.Infrastructure.ExternalApis.EyeMed.Services
 
         public async Task<IEnumerable<EyeMedDtoBenefit>> GetPatientBenefits(int patientId)
         {
-            return await httpClient
+            IEnumerable<EyeMedDtoBenefit>? benefits = await httpClient
                 .GetFromJsonAsync<IEnumerable<EyeMedDtoBenefit>>($"/patients/{patientId}/benefits");
+
+            return benefits ?? throw new InvalidOperationException("Failed to parse JSON payload");
         }
     }
 }
