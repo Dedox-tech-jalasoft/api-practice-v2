@@ -8,22 +8,24 @@ namespace InsuranceAPIv2.Application.Contexts
     public class PatientContext : IPatientContext
     {
         private readonly IStrategyFactory<IPatientStrategy> patientStrategyFactory;
+        private readonly ICarrierService carrierService;
 
-        public PatientContext(IStrategyFactory<IPatientStrategy> patientStrategyFactory)
+        public PatientContext(IStrategyFactory<IPatientStrategy> patientStrategyFactory, ICarrierService carrierService)
         {
             this.patientStrategyFactory = patientStrategyFactory;
+            this.carrierService = carrierService;
         }
 
         public async Task<Result<DtoPatient>> RetrievePatientById(int carrierId, int patientId)
         {
-            if (!CarrierValidator.DoesCarrierExist(carrierId))
+            if (!carrierService.DoesCarrierExist(carrierId))
             {
                 Error error = new() { Code = Code.BadRequest, Message = "Invalid Carrier Id" };
 
                 return new Result<DtoPatient> { Error = error };
             }
 
-            Carrier carrier = CarrierValidator.GetValidCarrierById(carrierId);
+            Carrier carrier = carrierService.GetCarrierById(carrierId);
 
             IPatientStrategy patientStrategy = patientStrategyFactory.GetStrategy(carrier);
 
